@@ -3,44 +3,33 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Jigsaw Puzzle - Local (пазли з виступами)</title>
+  <title>Jigsaw Puzzle 15x15 - no holes</title>
   <style>
-    :root {
-      --size: 900px; /* дошка під GRID 15 */
-      --grid: 15;    /* фіксована сітка */
-      --bg: #0b0b10;
-      --card: #111318;
-      --muted: #9aa0a6;
-      --accent: #4f8cff;
-      --good: #22c55e;
-    }
-    * { box-sizing: border-box; }
-    body { margin: 0; padding: 20px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Noto Sans', Arial; background: #0a0c12; color: #e5e7eb; }
-    .wrap { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
-    @media (max-width: 1200px) { .wrap { grid-template-columns: 1fr; } :root { --size: min(95vw, 900px); } }
-
-    .card { background: linear-gradient(180deg, #151822, #0f111a); border: 1px solid #222531; border-radius: 16px; padding: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.35); }
-    .title { font-size: 28px; margin: 0 0 8px; }
-    .muted { color: var(--muted); font-size: 14px; }
-
-    .hud { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 8px; }
-    .timer { font-variant-numeric: tabular-nums; font-size: 24px; font-weight: 700; letter-spacing: .3px; }
-    .badge { padding: 6px 10px; border-radius: 999px; font-size: 12px; background: #182026; border: 1px solid #273041; color: #cbd5e1; }
-    .btns { display: flex; gap: 10px; margin-top: 10px; }
-    button { appearance: none; border: 1px solid #2a3350; background: #12182a; color: #e5e7eb; border-radius: 12px; padding: 10px 14px; font-weight: 600; cursor: pointer; box-shadow: 0 6px 16px rgba(0,0,0,.25); }
-    button:hover { border-color: #3a4e7a; }
-    .primary { background: #13315c; border-color: #315a95; }
-    .primary:hover { background: #153b70; }
-
-    canvas { width: var(--size); height: var(--size); border-radius: 18px; display: block; background: #0b0e14; border: 1px solid #23273a; box-shadow: 0 10px 30px rgba(0,0,0,.35); }
-    .footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 12px; }
+    :root { --size: 900px; }
+    *{box-sizing:border-box}
+    body{margin:0;padding:20px;font-family:system-ui,Segoe UI,Roboto,Ubuntu,Arial;background:#0b0e14;color:#e5e7eb}
+    .wrap{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+    @media (max-width: 1100px){.wrap{grid-template-columns:1fr} :root{--size:min(95vw,900px)}}
+    .card{background:linear-gradient(180deg,#151822,#0f111a);border:1px solid #222531;border-radius:16px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .title{font-size:28px;margin:0 0 8px}
+    .muted{color:#9aa0a6;font-size:14px}
+    .hud{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:8px}
+    .timer{font-variant-numeric:tabular-nums;font-size:24px;font-weight:700;letter-spacing:.3px}
+    .badge{padding:6px 10px;border-radius:999px;font-size:12px;background:#182026;border:1px solid #273041;color:#cbd5e1}
+    .btns{display:flex;gap:10px;margin-top:10px}
+    button{appearance:none;border:1px solid #2a3350;background:#12182a;color:#e5e7eb;border-radius:12px;padding:10px 14px;font-weight:600;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.25)}
+    button:hover{border-color:#3a4e7a}
+    .primary{background:#13315c;border-color:#315a95}
+    .primary:hover{background:#153b70}
+    canvas{width:var(--size);height:var(--size);border-radius:18px;display:block;background:#0b0e14;border:1px solid #23273a;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .footer{text-align:center;color:#9aa0a6;font-size:12px;margin-top:12px}
   </style>
 </head>
 <body>
   <div class="wrap">
     <section class="card">
-      <h1 class="title">Jigsaw Puzzle 15x15</h1>
-      <p class="muted">Картинка фіксована: <code>pazzle.png</code> у цій папці. Щоб оновити раз на тиждень - просто заміни файл з тією ж назвою.</p>
+      <h1 class="title">Jigsaw Puzzle 15x15 (без дірок)</h1>
+      <p class="muted">Картинка фіксована: <code>pazzle.png</code>. Щоб оновити раз на тиждень - просто заміни файл з тією ж назвою.</p>
       <div class="hud">
         <div class="timer" id="timer">00:00.00</div>
         <span class="badge" id="state">Готовність</span>
@@ -51,28 +40,25 @@
         <button id="hintBtn">Підсвітити правильні</button>
         <button id="resetBtn">Скинути</button>
       </div>
-      <div class="card" style="margin-top:12px; padding:12px;">
+      <div class="card" style="margin-top:12px;padding:12px;">
         <div class="muted"><b>Як грати</b></div>
         <ul class="muted" style="margin:8px 0 0 16px;">
           <li>Клікни по двох фрагментах, щоб поміняти їх місцями.</li>
-          <li>Таймер стартує з першого ходу. Коли зібрано - зупиняється.</li>
-          <li>Фрагменти мають форму пазлів з виступами та вирізами.</li>
+          <li>Таймер стартує з першого ходу і зупиняється при складанні.</li>
+          <li>Форма пазлів лише як контур поверх зображення - жодних дірок між фрагментами.</li>
         </ul>
       </div>
-      <div class="footer">Локальний режим - без лідерборду. Для оновлення зображення просто заміни <code>pazzle.png</code>.</div>
+      <div class="footer">Локальний режим - без лідерборду. Оновлюй картинку, замінюючи <code>pazzle.png</code>.</div>
     </section>
 
     <section>
-      <canvas id="canvas" width="1500" height="1500" aria-label="Ігрова дошка"></canvas>
+      <canvas id="canvas" width="1800" height="1800" aria-label="Ігрова дошка"></canvas>
     </section>
   </div>
 
   <script>
-    // Константи
-    const GRID = 15; // фіксована сітка
-    const CELLS = GRID * GRID;
+    const GRID = 15; const CELLS = GRID*GRID;
 
-    // DOM
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     const timerEl = document.getElementById('timer');
@@ -81,166 +67,93 @@
     const resetBtn = document.getElementById('resetBtn');
     const hintBtn = document.getElementById('hintBtn');
 
-    // Стан
-    let img = new Image();
+    const img = new Image();
     img.src = './pazzle.png';
-    let pieceSize; // у пікселях на канвасі
-    let order = Array.from({length: CELLS}, (_, i) => i);
-    let selected = null; // позиція на дошці
-    let startedAt = null; let elapsed = 0; let timerId = null;
-    let hintMode = false;
 
-    // Профіль виступів для кожної внутрішньої межі: -1 виріз, +1 виступ, 0 край
-    let edges = []; // розмір GRID x GRID, кожен: {t,r,b,l}
+    const pieceSize = Math.floor(canvas.width / GRID);
+    let order = Array.from({length: CELLS}, (_,i)=>i);
+    let selected = null; let hintMode = false;
+    let startedAt = null, elapsed = 0, timerId = null;
 
-    function initEdges(rng=Math.random) {
-      edges = Array.from({length: GRID}, ()=>Array.from({length: GRID},()=>({t:0,r:0,b:0,l:0})));
-      for (let r=0; r<GRID; r++) {
-        for (let c=0; c<GRID; c++) {
-          // top
-          if (r===0) edges[r][c].t = 0; else edges[r][c].t = -edges[r-1][c].b;
-          // left
-          if (c===0) edges[r][c].l = 0; else edges[r][c].l = -edges[r][c-1].r;
-          // right
-          if (c===GRID-1) edges[r][c].r = 0; else edges[r][c].r = rng()<0.5? -1: 1;
-          // bottom
-          if (r===GRID-1) edges[r][c].b = 0; else edges[r][c].b = rng()<0.5? -1: 1;
+    // Генеруємо комплементарні краї
+    let edges = [];
+    function initEdges(rng=Math.random){
+      edges = Array.from({length: GRID}, ()=>Array.from({length: GRID}, ()=>({t:0,r:0,b:0,l:0})));
+      for(let r=0;r<GRID;r++){
+        for(let c=0;c<GRID;c++){
+          if(r===0) edges[r][c].t = 0; else edges[r][c].t = -edges[r-1][c].b;
+          if(c===0) edges[r][c].l = 0; else edges[r][c].l = -edges[r][c-1].r;
+          edges[r][c].r = (c===GRID-1)? 0 : (rng()<0.5? -1: 1);
+          edges[r][c].b = (r===GRID-1)? 0 : (rng()<0.5? -1: 1);
         }
       }
     }
 
-    function drawPiecePath(ctx, x, y, size, e) {
-      // e: {t,r,b,l} each in {-1,0,1}
-      const tab = size/3.5; // розмір виступу
-      const k = size/6;     // контрольні точки кривої
-      ctx.beginPath();
-      ctx.moveTo(x, y);
-
+    // Контур пазла (тільки лінія - не вирізаємо порожнини)
+    function piecePath(ctx, size, e){
+      const tab = size/3.2; const k = size/6; const x=0, y=0; ctx.beginPath();
       // top
-      if (e.t===0) ctx.lineTo(x+size, y);
-      else {
-        const dir = e.t; // -1 виріз, +1 виступ
-        const mid = x + size/2;
-        ctx.lineTo(x+size*0.25, y);
-        ctx.bezierCurveTo(x+size*0.25+k, y, mid-tab, y - dir*tab, mid, y - dir*tab);
-        ctx.bezierCurveTo(mid+tab, y - dir*tab, x+size*0.75-k, y, x+size*0.75, y);
-        ctx.lineTo(x+size, y);
-      }
+      if(e.t===0){ ctx.moveTo(x,y); ctx.lineTo(x+size,y); }
+      else{ const d=e.t, m=x+size/2; ctx.moveTo(x,y); ctx.lineTo(x+size*0.25,y); ctx.bezierCurveTo(x+size*0.25+k,y, m-tab,y-d*tab, m,y-d*tab); ctx.bezierCurveTo(m+tab,y-d*tab, x+size*0.75-k,y, x+size*0.75,y); ctx.lineTo(x+size,y); }
       // right
-      if (e.r===0) ctx.lineTo(x+size, y+size);
-      else {
-        const dir = e.r;
-        const mid = y + size/2;
-        ctx.lineTo(x+size, y+size*0.25);
-        ctx.bezierCurveTo(x+size, y+size*0.25+k, x+size+dir*tab, mid-tab, x+size+dir*tab, mid);
-        ctx.bezierCurveTo(x+size+dir*tab, mid+tab, x+size, y+size*0.75-k, x+size, y+size*0.75);
-        ctx.lineTo(x+size, y+size);
-      }
+      if(e.r===0){ ctx.lineTo(x+size,y+size); }
+      else{ const d=e.r, m=y+size/2; ctx.lineTo(x+size,y+size*0.25); ctx.bezierCurveTo(x+size,y+size*0.25+k, x+size+d*tab,m-tab, x+size+d*tab,m); ctx.bezierCurveTo(x+size+d*tab,m+tab, x+size,y+size*0.75-k, x+size,y+size*0.75); ctx.lineTo(x+size,y+size); }
       // bottom
-      if (e.b===0) ctx.lineTo(x, y+size);
-      else {
-        const dir = e.b;
-        const mid = x + size/2;
-        ctx.lineTo(x+size*0.75, y+size);
-        ctx.bezierCurveTo(x+size*0.75-k, y+size, mid+tab, y+size+dir*tab, mid, y+size+dir*tab);
-        ctx.bezierCurveTo(mid-tab, y+size+dir*tab, x+size*0.25+k, y+size, x+size*0.25, y+size);
-        ctx.lineTo(x, y+size);
-      }
+      if(e.b===0){ ctx.lineTo(x,y+size); }
+      else{ const d=e.b, m=x+size/2; ctx.lineTo(x+size*0.75,y+size); ctx.bezierCurveTo(x+size*0.75-k,y+size, m+tab,y+size+d*tab, m,y+size+d*tab); ctx.bezierCurveTo(m-tab,y+size+d*tab, x+size*0.25+k,y+size, x+size*0.25,y+size); ctx.lineTo(x,y+size); }
       // left
-      if (e.l===0) ctx.lineTo(x, y);
-      else {
-        const dir = e.l;
-        const mid = y + size/2;
-        ctx.lineTo(x, y+size*0.75);
-        ctx.bezierCurveTo(x, y+size*0.75-k, x - dir*tab, mid+tab, x - dir*tab, mid);
-        ctx.bezierCurveTo(x - dir*tab, mid-tab, x, y+size*0.25+k, x, y+size*0.25);
-        ctx.lineTo(x, y);
-      }
+      if(e.l===0){ ctx.lineTo(x,y); }
+      else{ const d=e.l, m=y+size/2; ctx.lineTo(x,y+size*0.75); ctx.bezierCurveTo(x,y+size*0.75-k, x-d*tab,m+tab, x-d*tab,m); ctx.bezierCurveTo(x-d*tab,m-tab, x,y+size*0.25+k, x,y+size*0.25); ctx.lineTo(x,y); }
       ctx.closePath();
     }
 
-    function render() {
-      const W = canvas.width, H = canvas.height;
-      ctx.clearRect(0,0,W,H);
+    function render(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
       const size = pieceSize;
-      for (let pos=0; pos<CELLS; pos++) {
-        const drawRow = Math.floor(pos/GRID);
-        const drawCol = pos % GRID;
-        const pieceId = order[pos];
-        const srcRow = Math.floor(pieceId/GRID);
-        const srcCol = pieceId % GRID;
-
-        const dx = drawCol*size;
-        const dy = drawRow*size;
-
-        // Маска форми
-        drawPiecePath(ctx, dx, dy, size, edges[drawRow][drawCol]);
-        ctx.save();
-        ctx.clip();
-        // Відповідна частина зображення
-        ctx.drawImage(img, srcCol*img.width/GRID, srcRow*img.height/GRID, img.width/GRID, img.height/GRID, dx, dy, size, size);
-        ctx.restore();
-
-        // Обводка
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = '#1f2434';
-        ctx.stroke();
-
-        // Підсвітка
-        if (hintMode && pieceId===pos) {
-          ctx.save();
-          ctx.strokeStyle = 'rgba(34,197,94,.85)';
-          ctx.lineWidth = 2.5;
-          drawPiecePath(ctx, dx, dy, size, edges[drawRow][drawCol]);
-          ctx.stroke();
-          ctx.restore();
-        }
-        if (selected===pos) {
-          ctx.save();
-          ctx.strokeStyle = '#4f8cff';
-          ctx.lineWidth = 3;
-          drawPiecePath(ctx, dx, dy, size, edges[drawRow][drawCol]);
-          ctx.stroke();
-          ctx.restore();
-        }
+      // 1) Малюємо плитки зображення без масок - повні прямокутники
+      for(let pos=0; pos<CELLS; pos++){
+        const drawRow = Math.floor(pos/GRID), drawCol = pos % GRID;
+        const pieceId = order[pos]; const srcRow = Math.floor(pieceId/GRID), srcCol = pieceId % GRID;
+        const dx = drawCol*size, dy = drawRow*size;
+        ctx.drawImage(
+          img,
+          srcCol*img.width/GRID, srcRow*img.height/GRID,
+          img.width/GRID, img.height/GRID,
+          dx, dy, size, size
+        );
       }
+      // 2) Малюємо контур пазлів зверху - без вирізання, тому дірок не буде
+      ctx.lineWidth = 1.2; ctx.strokeStyle = 'rgba(24, 28, 42, 0.95)';
+      for(let pos=0; pos<CELLS; pos++){
+        const r = Math.floor(pos/GRID), c = pos % GRID; const dx=c*size, dy=r*size;
+        ctx.save(); ctx.translate(dx, dy); piecePath(ctx, size, edges[r][c]); ctx.stroke(); ctx.restore();
+      }
+      // Підсвітка правильних і вибраного
+      if (hintMode){
+        ctx.lineWidth = 2; ctx.strokeStyle = 'rgba(34,197,94,.85)';
+        for(let pos=0; pos<CELLS; pos++) if(order[pos]===pos){ const r=Math.floor(pos/GRID), c=pos%GRID; ctx.save(); ctx.translate(c*size, r*size); piecePath(ctx, size, edges[r][c]); ctx.stroke(); ctx.restore(); }
+      }
+      if (selected!==null){ const r=Math.floor(selected/GRID), c=selected%GRID; ctx.save(); ctx.translate(c*size, r*size); ctx.lineWidth=3; ctx.strokeStyle='#4f8cff'; piecePath(ctx, size, edges[r][c]); ctx.stroke(); ctx.restore(); }
     }
 
-    function startTimer(){ startedAt = performance.now(); timerId = setInterval(()=>{ elapsed = performance.now()-startedAt; updateTimer(elapsed); }, 30); stateEl.textContent='У процесі'; }
-    function stopTimer(){ if (timerId) { clearInterval(timerId); timerId=null; } }
-    function updateTimer(ms){ const total=Math.floor(ms/10); const c=String(total%100).padStart(2,'0'); const s=Math.floor(total/100); const ss=String(s%60).padStart(2,'0'); const m=String(Math.floor(s/60)).padStart(2,'0'); timerEl.textContent = `${m}:${ss}.${c}`; }
-
+    function startTimer(){ startedAt=performance.now(); timerId=setInterval(()=>{ elapsed=performance.now()-startedAt; updateTimer(elapsed); },30); stateEl.textContent='У процесі'; }
+    function stopTimer(){ if(timerId){ clearInterval(timerId); timerId=null; } }
+    function updateTimer(ms){ const total=Math.floor(ms/10); const c=String(total%100).padStart(2,'0'); const s=Math.floor(total/100); const ss=String(s%60).padStart(2,'0'); const m=String(Math.floor(s/60)).padStart(2,'0'); timerEl.textContent=`${m}:${ss}.${c}`; }
     function isSolved(arr){ for(let i=0;i<arr.length;i++) if(arr[i]!==i) return false; return true; }
     function shuffleArray(a){ const arr=[...a]; for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; }
 
-    function setup(doShuffle=true){ order = Array.from({length: CELLS}, (_,i)=>i); if(doShuffle){ do { order = shuffleArray(order); } while (isSolved(order)); }
-      selected = null; stopTimer(); startedAt=null; elapsed=0; updateTimer(0); hintMode=false; stateEl.textContent='Готовність'; render(); }
+    function setup(doShuffle=true){ order=Array.from({length:CELLS},(_,i)=>i); if(doShuffle){ do{ order=shuffleArray(order); } while(isSolved(order)); } selected=null; stopTimer(); startedAt=null; elapsed=0; updateTimer(0); hintMode=false; stateEl.textContent='Готовність'; render(); }
 
-    function posFromClient(x,y){ const rect = canvas.getBoundingClientRect(); const scaleX = canvas.width/rect.width; const scaleY = canvas.height/rect.height; const cx = (x-rect.left)*scaleX; const cy = (y-rect.top)*scaleY; const col = Math.floor(cx/pieceSize); const row = Math.floor(cy/pieceSize); if(col<0||row<0||col>=GRID||row>=GRID) return -1; return row*GRID+col; }
+    function posFromClient(x,y){ const rect=canvas.getBoundingClientRect(); const scaleX=canvas.width/rect.width; const scaleY=canvas.height/rect.height; const cx=(x-rect.left)*scaleX; const cy=(y-rect.top)*scaleY; const col=Math.floor(cx/pieceSize); const row=Math.floor(cy/pieceSize); if(col<0||row<0||col>=GRID||row>=GRID) return -1; return row*GRID+col; }
 
-    canvas.addEventListener('click', (e)=>{
-      const pos = posFromClient(e.clientX, e.clientY);
-      if (pos<0) return;
-      if (selected===null) { selected=pos; render(); return; }
-      if (pos===selected) { selected=null; render(); return; }
-      if (!startedAt) startTimer();
-      [order[selected], order[pos]] = [order[pos], order[selected]];
-      selected=null; render(); if (isSolved(order)) { stopTimer(); if (startedAt) updateTimer(elapsed); stateEl.textContent='Зібрано'; }
-    });
+    canvas.addEventListener('click', (e)=>{ const pos=posFromClient(e.clientX,e.clientY); if(pos<0) return; if(selected===null){ selected=pos; render(); return; } if(pos===selected){ selected=null; render(); return; } if(!startedAt) startTimer(); [order[selected],order[pos]]=[order[pos],order[selected]]; selected=null; render(); if(isSolved(order)){ stopTimer(); if(startedAt) updateTimer(elapsed); stateEl.textContent='Зібрано'; } });
 
     shuffleBtn.addEventListener('click', ()=>setup(true));
-    resetBtn.addEventListener('click', ()=>{ order = Array.from({length:CELLS},(_,i)=>i); selected=null; stopTimer(); startedAt=null; elapsed=0; updateTimer(0); stateEl.textContent='Готовність'; render(); });
+    resetBtn.addEventListener('click', ()=>{ order=Array.from({length:CELLS},(_,i)=>i); selected=null; stopTimer(); startedAt=null; elapsed=0; updateTimer(0); stateEl.textContent='Готовність'; render(); });
     hintBtn.addEventListener('click', ()=>{ hintMode=!hintMode; hintBtn.textContent = hintMode? 'Сховати підсвітку' : 'Підсвітити правильні'; render(); });
 
-    img.onload = ()=>{
-      // Підганяємо канвас під квадрат і рахуємо розмір шматка
-      const boardPx = 1500; // внутрішня роздільна здатність канваса
-      canvas.width = boardPx; canvas.height = boardPx;
-      pieceSize = Math.floor(boardPx / GRID);
-      initEdges();
-      setup(true);
-    };
-    img.onerror = ()=>{ alert('Не вдалось завантажити pazzle.png. Поклади картинку поруч з index.html.'); };
+    img.onload = ()=>{ initEdges(); setup(true); };
+    img.onerror = ()=>{ alert('Не вдалось завантажити pazzle.png. Поклади зображення поруч з index.html.'); };
   </script>
 </body>
 </html>
